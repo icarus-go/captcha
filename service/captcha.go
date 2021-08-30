@@ -2,11 +2,19 @@ package service
 
 import (
 	"github.com/mojocn/base64Captcha"
+	"pmo-test4.yz-intelligence.com/kit/captcha/config"
 	"pmo-test4.yz-intelligence.com/kit/captcha/model"
-	"pmo-test4.yz-intelligence.com/kit/captcha/model/response"
 )
 
-type captcha struct{}
+type Store interface {
+	Generate(id string, value string) (string, error)
+
+	Executor(id string) (string, error)
+
+	Verify(id, answer string, clear bool) bool
+}
+type captcha struct {
+}
 
 var (
 	store   = base64Captcha.DefaultMemStore // 验证码存储库
@@ -14,12 +22,12 @@ var (
 )
 
 //Get 获取验证码对象
-func (c *captcha) Get(param model.Captcha) (*response.Captcha, error) {
+func (c *captcha) Get(param config.Captcha) (*model.Captcha, error) {
 	driver := base64Captcha.NewDriverDigit(param.ImgHeight, param.ImgWidth, param.KeyLong, 0.7, 80) // 字符,公式,验证码配置, 生成默认数字的driver
 
 	cp := base64Captcha.NewCaptcha(driver, store)
 
-	result := new(response.Captcha)
+	result := new(model.Captcha)
 
 	captchaID, imageBase64, err := cp.Generate()
 	if err != nil {
@@ -33,6 +41,6 @@ func (c *captcha) Get(param model.Captcha) (*response.Captcha, error) {
 }
 
 //Verify 校验
-func (c *captcha) Verify(param response.Captcha) bool {
+func (c *captcha) Verify(param model.Captcha) bool {
 	return store.Verify(param.CaptchaID, param.Image, true)
 }
