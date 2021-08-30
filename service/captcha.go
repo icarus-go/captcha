@@ -6,15 +6,7 @@ import (
 	"pmo-test4.yz-intelligence.com/kit/captcha/model"
 )
 
-type Store interface {
-	Generate(id string, value string) (string, error)
-
-	Executor(id string) (string, error)
-
-	Verify(id, answer string, clear bool) bool
-}
-type captcha struct {
-}
+type captcha struct{}
 
 var (
 	store   = base64Captcha.DefaultMemStore // 验证码存储库
