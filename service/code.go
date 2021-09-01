@@ -8,6 +8,7 @@ import (
 	"pmo-test4.yz-intelligence.com/kit/captcha/service/adapter"
 	"pmo-test4.yz-intelligence.com/kit/captcha/service/impl"
 	"pmo-test4.yz-intelligence.com/kit/component/gins"
+	"time"
 )
 
 type ICode interface {
@@ -19,7 +20,30 @@ type ICode interface {
 	Verify(code string, md model.Captcha) bool
 }
 
-func New(cnf config.Attribute) (ICode, error) {
+func New(cnf *config.Attribute) (ICode, error) {
+	if cnf.Length < 4 {
+		cnf.Length = 4
+	}
+
+	if cnf.Height < 1 {
+		cnf.Height = 40
+	}
+
+	if cnf.Width < 1 {
+		cnf.Width = 80
+	}
+
+	if cnf.CollectNumber < 1 {
+		cnf.CollectNumber = 10000
+	}
+
+	if cnf.Expire < time.Second*1 {
+		cnf.Expire = time.Second * 10
+	}
+
+	if cnf.Kind == "" {
+		cnf.Kind = adapter.Image.Value()
+	}
 
 	kind := adapter.Adapter(cnf.Kind)
 
@@ -45,7 +69,7 @@ func New(cnf config.Attribute) (ICode, error) {
 		email.Store = store
 		instance = email
 	default:
-		return nil, errors.New("unknown")
+		return nil, errors.New("unknown adapter")
 	}
 	return instance, nil
 }

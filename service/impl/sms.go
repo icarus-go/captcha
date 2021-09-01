@@ -10,7 +10,7 @@ import (
 
 type SMS struct {
 	Store     base64Captcha.Store
-	Attribute config.Attribute
+	Attribute *config.Attribute
 }
 
 func (i *SMS) Limit(ctx *gins.Context) error {

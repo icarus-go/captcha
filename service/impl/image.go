@@ -8,7 +8,7 @@ import (
 )
 
 type Image struct {
-	Attribute config.Attribute
+	Attribute *config.Attribute
 	Store     base64Captcha.Store
 }
 

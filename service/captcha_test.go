@@ -1,8 +1,7 @@
-package controller
+package service
 
 import (
 	"pmo-test4.yz-intelligence.com/kit/captcha/config"
-	"pmo-test4.yz-intelligence.com/kit/captcha/service"
 	"testing"
 )
 
@@ -16,7 +15,7 @@ func Test_captcha_CommonGet(t *testing.T) {
 	cnf.Width = 300
 	cnf.Kind = "image"
 
-	code, err := service.New(cnf)
+	code, err := New(&cnf)
 	if err != nil {
 		return
 	}
