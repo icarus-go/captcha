@@ -7,19 +7,18 @@ import (
 )
 
 type captcha struct {
-	Cnf  config.Captcha
-	Cnf2 config.Attribute
+	Cnf config.Attribute
 }
 
 func NewCaptcha(cnf config.Attribute) *captcha {
 	captcha := new(captcha)
-	captcha.Cnf2 = cnf
+	captcha.Cnf = cnf
 	return captcha
 }
 
 //CommonGet
 func (c *captcha) CommonGet(ctx *gins.Context) {
-	code, err := service.New(c.Cnf2)
+	code, err := service.New(&c.Cnf)
 	if err != nil {
 		ctx.API.SetError(err)
 		return
