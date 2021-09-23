@@ -51,6 +51,7 @@ func (i *SMS) Get(configuration *model.Configuration) (model.Captcha, error) {
 	}
 
 	result.CaptchaID = captchaID
+
 	return result, nil
 }
 
