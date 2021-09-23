@@ -17,7 +17,7 @@ type ICode interface {
 	//Get 获取验证码
 	Get() (model.Captcha, error)
 	//Verify 验证 验证码是否正确
-	Verify(code string, md model.Captcha) bool
+	Verify(code, captchaID string) bool
 }
 
 func New(cnf *config.Attribute) (ICode, error) {

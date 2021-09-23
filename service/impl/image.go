@@ -33,6 +33,6 @@ func (i *Image) Get() (model.Captcha, error) {
 	return result, nil
 }
 
-func (i *Image) Verify(code string, md model.Captcha) bool {
-	return i.Store.Verify(md.CaptchaID, code, true)
+func (i *Image) Verify(code, captchaID string) bool {
+	return i.Store.Verify(captchaID, code, true)
 }

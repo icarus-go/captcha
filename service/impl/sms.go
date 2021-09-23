@@ -17,11 +17,25 @@ func (i *SMS) Limit(ctx *gins.Context) error {
 	return nil
 }
 
-func (SMS) Get() (model.Captcha, error) {
-	// todo 发送验证码，并且返回captchaID
-	return model.Captcha{}, errors.New("SMS not implemented")
+func (i *SMS) Get() (model.Captcha, error) {
+	result := model.Captcha{}
+	if i.Attribute.Sender == nil {
+		return result, errors.New("短信发送方法为空")
+	}
+
+	captchaID, code, err := i.Attribute.Sender.Send(i.Attribute.Length)
+	if err != nil {
+		return result, err
+	}
+
+	if err = i.Store.Set(captchaID, code); err != nil {
+		return result, err
+	}
+
+	result.CaptchaID = captchaID
+	return result, nil
 }
 
-func (i *SMS) Verify(code string, md model.Captcha) bool {
-	return i.Store.Verify(md.CaptchaID, code, true)
+func (i *SMS) Verify(code, captchaID string) bool {
+	return i.Store.Verify(captchaID, code, false)
 }
