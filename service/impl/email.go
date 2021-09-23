@@ -17,13 +17,10 @@ func (i *Email) Limit(ctx *gins.Context) error {
 }
 
 func (i *Email) Get() (model.Captcha, error) {
-	//if err := i.Store.Set("id", "10086"); err != nil {
-	//
-	//}
 
 	return model.Captcha{}, nil
 }
 
-func (i *Email) Verify(code string, md model.Captcha) bool {
-	return i.Store.Verify(md.CaptchaID, code, true)
+func (i *Email) Verify(code, captchaID string) bool {
+	return i.Store.Verify(captchaID, code, true)
 }
