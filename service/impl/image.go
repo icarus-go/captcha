@@ -17,7 +17,7 @@ func (i *Image) Limit(ctx *gins.Context) error {
 	return nil
 }
 
-func (i *Image) Get(_ model.Configuration) (model.Captcha, error) {
+func (i *Image) Get(configuration *model.Configuration) (model.Captcha, error) {
 	if i.Attribute.Length < 4 {
 		i.Attribute.Length = 4
 	}

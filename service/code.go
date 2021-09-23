@@ -14,7 +14,7 @@ type ICode interface {
 	//Limit 限制验证码发送的次数或者频率
 	Limit(ctx *gins.Context) error
 	//Get 获取验证码
-	Get(configuration model.Configuration) (model.Captcha, error)
+	Get(configuration *model.Configuration) (model.Captcha, error)
 	//Verify 验证 验证码是否正确
 	Verify(code, captchaID string) bool
 }

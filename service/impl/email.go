@@ -16,7 +16,7 @@ func (i *Email) Limit(ctx *gins.Context) error {
 	return nil
 }
 
-func (i *Email) Get(_ model.Configuration) (model.Captcha, error) {
+func (i *Email) Get(configuration *model.Configuration) (model.Captcha, error) {
 
 	return model.Captcha{}, nil
 }

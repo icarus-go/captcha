@@ -18,7 +18,13 @@ func (i *SMS) Limit(ctx *gins.Context) error {
 	return nil
 }
 
-func (i *SMS) Get(configuration model.Configuration) (model.Captcha, error) {
+func (i *SMS) Get(configuration *model.Configuration) (model.Captcha, error) {
+	result := model.Captcha{}
+
+	if configuration.SMS.Mobile == "" {
+		return result, errors.New("手机号码不允许为空")
+	}
+
 	if i.Attribute.Length < 4 {
 		i.Attribute.Length = 4
 	}
@@ -31,7 +37,6 @@ func (i *SMS) Get(configuration model.Configuration) (model.Captcha, error) {
 		i.Attribute.Expire = time.Second * 40
 	}
 
-	result := model.Captcha{}
 	if i.Attribute.Sender == nil {
 		return result, errors.New("短信发送方法为空")
 	}
