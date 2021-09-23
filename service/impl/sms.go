@@ -6,6 +6,7 @@ import (
 	"pmo-test4.yz-intelligence.com/kit/captcha/config"
 	"pmo-test4.yz-intelligence.com/kit/captcha/model"
 	"pmo-test4.yz-intelligence.com/kit/component/gins"
+	"time"
 )
 
 type SMS struct {
@@ -17,13 +18,30 @@ func (i *SMS) Limit(ctx *gins.Context) error {
 	return nil
 }
 
-func (i *SMS) Get() (model.Captcha, error) {
+func (i *SMS) Get(configuration *model.Configuration) (model.Captcha, error) {
 	result := model.Captcha{}
+
+	if configuration.SMS.Mobile == "" {
+		return result, errors.New("手机号码不允许为空")
+	}
+
+	if i.Attribute.Length < 4 {
+		i.Attribute.Length = 4
+	}
+
+	if i.Attribute.CollectNumber < 1 {
+		i.Attribute.CollectNumber = 10000
+	}
+
+	if i.Attribute.Expire < time.Second*1 {
+		i.Attribute.Expire = time.Second * 40
+	}
+
 	if i.Attribute.Sender == nil {
 		return result, errors.New("短信发送方法为空")
 	}
 
-	captchaID, code, err := i.Attribute.Sender.Send(i.Attribute.Length)
+	captchaID, code, err := i.Attribute.Sender.Send(configuration.SMS.Mobile, i.Attribute.Length)
 	if err != nil {
 		return result, err
 	}
@@ -33,6 +51,7 @@ func (i *SMS) Get() (model.Captcha, error) {
 	}
 
 	result.CaptchaID = captchaID
+
 	return result, nil
 }
 
