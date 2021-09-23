@@ -20,6 +20,7 @@ type Email struct {
 
 }
 
+//Sms 短信验证码参数
 type Sms struct {
 	Mobile string `json:"mobile"`
 }
