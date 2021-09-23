@@ -5,6 +5,7 @@ import (
 	"pmo-test4.yz-intelligence.com/kit/captcha/config"
 	"pmo-test4.yz-intelligence.com/kit/captcha/model"
 	"pmo-test4.yz-intelligence.com/kit/component/gins"
+	"time"
 )
 
 type Image struct {
@@ -16,7 +17,19 @@ func (i *Image) Limit(ctx *gins.Context) error {
 	return nil
 }
 
-func (i *Image) Get() (model.Captcha, error) {
+func (i *Image) Get(_ model.Configuration) (model.Captcha, error) {
+	if i.Attribute.Length < 4 {
+		i.Attribute.Length = 4
+	}
+
+	if i.Attribute.CollectNumber < 1 {
+		i.Attribute.CollectNumber = 10000
+	}
+
+	if i.Attribute.Expire < time.Second*1 {
+		i.Attribute.Expire = time.Second * 30
+	}
+
 	driver := base64Captcha.NewDriverDigit(i.Attribute.Height, i.Attribute.Width, i.Attribute.Length, 0.7, 80) // 字符,公式,验证码配置, 生成默认数字的driver
 
 	cp := base64Captcha.NewCaptcha(driver, i.Store)
