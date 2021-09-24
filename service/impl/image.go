@@ -3,7 +3,8 @@ package impl
 import (
 	"github.com/mojocn/base64Captcha"
 	"pmo-test4.yz-intelligence.com/kit/captcha/config"
-	"pmo-test4.yz-intelligence.com/kit/captcha/model"
+	"pmo-test4.yz-intelligence.com/kit/captcha/model/request"
+	"pmo-test4.yz-intelligence.com/kit/captcha/model/response"
 	"pmo-test4.yz-intelligence.com/kit/component/gins"
 	"time"
 )
@@ -17,7 +18,7 @@ func (i *Image) Limit(ctx *gins.Context) error {
 	return nil
 }
 
-func (i *Image) Get(configuration *model.Configuration) (model.Captcha, error) {
+func (i *Image) Get(configuration *request.Configuration) (response.Captcha, error) {
 	if i.Attribute.Length < 4 {
 		i.Attribute.Length = 4
 	}
@@ -34,14 +35,14 @@ func (i *Image) Get(configuration *model.Configuration) (model.Captcha, error) {
 
 	cp := base64Captcha.NewCaptcha(driver, i.Store)
 
-	result := model.Captcha{}
+	result := response.Captcha{}
 
 	captchaID, imageBase64, err := cp.Generate()
 	if err != nil {
 		return result, err
 	}
 
-	result.Image = imageBase64
+	result.Image = &response.Image{ImageBase64: imageBase64}
 	result.CaptchaID = captchaID
 	return result, nil
 }

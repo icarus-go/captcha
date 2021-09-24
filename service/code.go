@@ -4,7 +4,8 @@ import (
 	"errors"
 	"github.com/mojocn/base64Captcha"
 	"pmo-test4.yz-intelligence.com/kit/captcha/config"
-	"pmo-test4.yz-intelligence.com/kit/captcha/model"
+	"pmo-test4.yz-intelligence.com/kit/captcha/model/request"
+	"pmo-test4.yz-intelligence.com/kit/captcha/model/response"
 	"pmo-test4.yz-intelligence.com/kit/captcha/service/adapter"
 	"pmo-test4.yz-intelligence.com/kit/captcha/service/impl"
 	"pmo-test4.yz-intelligence.com/kit/component/gins"
@@ -14,7 +15,7 @@ type ICode interface {
 	//Limit 限制验证码发送的次数或者频率
 	Limit(ctx *gins.Context) error
 	//Get 获取验证码
-	Get(configuration *model.Configuration) (model.Captcha, error)
+	Get(configuration *request.Configuration) (response.Captcha, error)
 	//Verify 验证 验证码是否正确
 	Verify(code, captchaID string) bool
 }
