@@ -42,16 +42,16 @@ func (i *SMS) Get(configuration *request.Configuration) (response.Captcha, error
 		return result, errors.New("短信发送方法为空")
 	}
 
-	captchaID, code, err := i.Attribute.Sender.Send(configuration.SMS.Mobile, i.Attribute.Length)
+	code, err := i.Attribute.Sender.Send(configuration.SMS.Mobile, i.Attribute.Length)
 	if err != nil {
 		return result, err
 	}
 
-	if err = i.Store.Set(captchaID, code); err != nil {
+	if err = i.Store.Set(configuration.SMS.Mobile, code); err != nil {
 		return result, err
 	}
 
-	result.CaptchaID = captchaID
+	result.CaptchaID = configuration.SMS.Mobile
 
 	return result, nil
 }

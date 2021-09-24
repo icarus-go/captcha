@@ -25,5 +25,5 @@ type Sender interface {
 	//  string ： CaptchaID
 	//  string : 验证码
 	//  err    : 错误信息
-	Send(mobile string, length int) (string, string, error)
+	Send(mobile string, length int) (string, error)
 }
