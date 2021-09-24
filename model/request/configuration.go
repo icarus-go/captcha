@@ -1,4 +1,4 @@
-package model
+package request
 
 type Configuration struct {
 	Email Email // 邮件所需参数

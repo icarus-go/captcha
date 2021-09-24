@@ -4,7 +4,8 @@ import (
 	"errors"
 	"github.com/mojocn/base64Captcha"
 	"pmo-test4.yz-intelligence.com/kit/captcha/config"
-	"pmo-test4.yz-intelligence.com/kit/captcha/model"
+	"pmo-test4.yz-intelligence.com/kit/captcha/model/request"
+	"pmo-test4.yz-intelligence.com/kit/captcha/model/response"
 	"pmo-test4.yz-intelligence.com/kit/component/gins"
 	"time"
 )
@@ -18,8 +19,8 @@ func (i *SMS) Limit(ctx *gins.Context) error {
 	return nil
 }
 
-func (i *SMS) Get(configuration *model.Configuration) (model.Captcha, error) {
-	result := model.Captcha{}
+func (i *SMS) Get(configuration *request.Configuration) (response.Captcha, error) {
+	result := response.Captcha{}
 
 	if configuration.SMS.Mobile == "" {
 		return result, errors.New("手机号码不允许为空")
