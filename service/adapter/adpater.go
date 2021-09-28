@@ -3,7 +3,7 @@ package adapter
 type Adapter string
 
 const (
-	SMS   Adapter = "ext"
+	SMS   Adapter = "sms"
 	Email Adapter = "email"
 	Image Adapter = "image"
 )
