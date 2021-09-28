@@ -10,7 +10,7 @@ import (
 
 type Image struct {
 	Attribute *config.Attribute
-	Store     base64Captcha.Store
+	Store     *base64Captcha.Store
 }
 
 func (i *Image) Limit(ctx *gins.Context) error {
@@ -32,7 +32,7 @@ func (i *Image) Get(configuration *ext.Request) (ext.Captcha, error) {
 
 	driver := base64Captcha.NewDriverDigit(i.Attribute.Height, i.Attribute.Width, i.Attribute.Length, 0.7, 80) // 字符,公式,验证码配置, 生成默认数字的driver
 
-	cp := base64Captcha.NewCaptcha(driver, i.Store)
+	cp := base64Captcha.NewCaptcha(driver, *i.Store)
 
 	result := ext.Captcha{}
 
@@ -47,5 +47,5 @@ func (i *Image) Get(configuration *ext.Request) (ext.Captcha, error) {
 }
 
 func (i *Image) Verify(code, captchaID string) bool {
-	return i.Store.Verify(captchaID, code, true)
+	return (*i.Store).Verify(captchaID, code, true)
 }

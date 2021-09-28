@@ -10,7 +10,7 @@ import (
 )
 
 type SMS struct {
-	Store     base64Captcha.Store
+	Store     *base64Captcha.Store
 	Attribute *config.Attribute
 }
 
@@ -46,7 +46,7 @@ func (i *SMS) Get(configuration *ext.Request) (ext.Captcha, error) {
 		return result, err
 	}
 
-	if err = i.Store.Set(configuration.SMS.Mobile, code); err != nil {
+	if err = (*i.Store).Set(configuration.SMS.Mobile, code); err != nil {
 		return result, err
 	}
 
@@ -56,5 +56,5 @@ func (i *SMS) Get(configuration *ext.Request) (ext.Captcha, error) {
 }
 
 func (i *SMS) Verify(code, captchaID string) bool {
-	return i.Store.Verify(captchaID, code, false)
+	return (*i.Store).Verify(captchaID, code, false)
 }
