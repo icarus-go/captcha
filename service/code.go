@@ -34,17 +34,17 @@ func New(cnf *config.Attribute) (ICode, error) {
 	case adapter.SMS:
 		sms := new(impl.SMS)
 		sms.Attribute = cnf
-		sms.Store = store
+		sms.Store = &store
 		instance = sms
 	case adapter.Image:
 		image := new(impl.Image)
 		image.Attribute = cnf
-		image.Store = store
+		image.Store = &store
 		instance = image
 	case adapter.Email:
 		email := new(impl.Email)
 		email.Attribute = cnf
-		email.Store = store
+		email.Store = &store
 		instance = email
 	default:
 		return nil, errors.New("unknown adapter")

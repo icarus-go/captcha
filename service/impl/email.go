@@ -8,7 +8,7 @@ import (
 )
 
 type Email struct {
-	Store     base64Captcha.Store
+	Store     *base64Captcha.Store
 	Attribute *config.Attribute
 }
 
@@ -22,5 +22,5 @@ func (i *Email) Get(configuration *ext.Request) (ext.Captcha, error) {
 }
 
 func (i *Email) Verify(code, captchaID string) bool {
-	return i.Store.Verify(captchaID, code, true)
+	return (*i.Store).Verify(captchaID, code, true)
 }
