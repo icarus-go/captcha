@@ -2,7 +2,7 @@ package service
 
 import (
 	"pmo-test4.yz-intelligence.com/kit/captcha/config"
-	"pmo-test4.yz-intelligence.com/kit/captcha/ext"
+	"pmo-test4.yz-intelligence.com/kit/captcha/service/impl"
 	"testing"
 )
 
@@ -25,6 +25,8 @@ func Test_captcha_CommonGet(t *testing.T) {
 	if err != nil {
 		return
 	}
+
+	println(impl.ImageStore)
 	//println("image:", result.Image, ", captchaID:", result.CaptchaID)
 
 	value := "" // debug setting
@@ -57,20 +59,21 @@ func Test_captcha_SMSGet(t *testing.T) {
 		return
 	}
 
-	result, err := code.Get(&ext.Request{
-		Email: ext.EmailGenerate{},
-		SMS:   ext.SmsGenerator{},
-		Image: struct{}{},
-	})
-	if err != nil {
-		return
-	}
-	//println("image:", result.Image, ", captchaID:", result.CaptchaID)
-
-	value := "" // debug setting
-	if verify := code.Verify(value, result.CaptchaID); verify {
-		println("result: ", verify)
-		return
-	}
+	println(code)
+	//result, err := code.Get(&ext.Request{
+	//	Email: ext.EmailGenerate{},
+	//	SMS:   ext.SmsGenerator{},
+	//	Image: struct{}{},
+	//})
+	//if err != nil {
+	//	return
+	//}
+	////println("image:", result.Image, ", captchaID:", result.CaptchaID)
+	//
+	//value := "" // debug setting
+	//if verify := code.Verify(value, result.CaptchaID); verify {
+	//	println("result: ", verify)
+	//	return
+	//}
 	println("result: false")
 }

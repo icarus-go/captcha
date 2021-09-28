@@ -15,7 +15,7 @@ type ICode interface {
 	//Limit 限制验证码发送的次数或者频率
 	Limit(ctx *gins.Context) error
 	//Get 获取验证码
-	Get(configuration *ext.Request) (ext.Captcha, error)
+	Get(configuration *ext.Request) (*ext.Captcha, error)
 	//Verify 验证 验证码是否正确
 	Verify(code, captchaID string) bool
 }
@@ -28,23 +28,22 @@ func New(cnf *config.Attribute) (ICode, error) {
 	store := base64Captcha.NewMemoryStore(cnf.CollectNumber, cnf.Expire)
 
 	var instance ICode
-
 	switch adapter.Adapter(cnf.Kind) {
 
 	case adapter.SMS:
 		sms := new(impl.SMS)
 		sms.Attribute = cnf
-		sms.Store = &store
+		impl.SmsStore = &store
 		instance = sms
 	case adapter.Image:
 		image := new(impl.Image)
 		image.Attribute = cnf
-		image.Store = &store
+		impl.ImageStore = store
 		instance = image
 	case adapter.Email:
 		email := new(impl.Email)
 		email.Attribute = cnf
-		email.Store = &store
+		impl.EmailStore = &store
 		instance = email
 	default:
 		return nil, errors.New("unknown adapter")
