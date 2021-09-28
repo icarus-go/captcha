@@ -42,7 +42,7 @@ func (i *Image) Get(configuration *request.Configuration) (response.Captcha, err
 		return result, err
 	}
 
-	result.Image = &response.Image{ImageBase64: imageBase64}
+	result.Image = response.Image{ImageBase64: imageBase64}
 	result.CaptchaID = captchaID
 	return result, nil
 }
