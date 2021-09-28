@@ -11,7 +11,7 @@ func Test_captcha_CommonGet(t *testing.T) {
 
 	cnf.Length = 4
 	cnf.CollectNumber = 10000
-	cnf.Expire = 10
+	cnf.ExpireSecond = 10
 	cnf.Height = 60
 	cnf.Width = 300
 	cnf.Kind = "image"
@@ -48,7 +48,7 @@ func Test_captcha_SMSGet(t *testing.T) {
 
 	cnf.Length = 4
 	cnf.CollectNumber = 10000
-	cnf.Expire = 10
+	cnf.ExpireSecond = 10
 	cnf.Height = 60
 	cnf.Width = 300
 	cnf.Kind = "ext"

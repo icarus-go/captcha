@@ -13,7 +13,7 @@ type Attribute struct {
 	Length        int           `json:"length" yaml:"length" default:"4"`
 	Width         int           `json:"width" yaml:"width" default:"80"`
 	Height        int           `json:"height" yaml:"height" default:"40"`
-	Expire        time.Duration `json:"expire" yaml:"expire" default:"40"`
+	ExpireSecond  time.Duration `json:"expireSecond" yaml:"expire-second" default:"30"`
 	CollectNumber int           `json:"collectNum" yaml:"collectNum" default:"10000"`
 	Sender        Sender        `json:"-" yaml:"-"`
 }

@@ -5,6 +5,7 @@ import (
 	"github.com/mojocn/base64Captcha"
 	"pmo-test4.yz-intelligence.com/kit/captcha/config"
 	"pmo-test4.yz-intelligence.com/kit/captcha/ext"
+	"time"
 
 	"pmo-test4.yz-intelligence.com/kit/captcha/service/adapter"
 	"pmo-test4.yz-intelligence.com/kit/captcha/service/impl"
@@ -25,7 +26,7 @@ func New(cnf *config.Attribute) (ICode, error) {
 		cnf.Kind = adapter.Image.Value()
 	}
 
-	store := base64Captcha.NewMemoryStore(cnf.CollectNumber, cnf.Expire)
+	store := base64Captcha.NewMemoryStore(cnf.CollectNumber, cnf.ExpireSecond*time.Second)
 
 	var instance ICode
 	switch adapter.Adapter(cnf.Kind) {

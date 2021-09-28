@@ -34,8 +34,8 @@ func (i *SMS) Get(configuration *ext.Request) (*ext.Captcha, error) {
 		i.Attribute.CollectNumber = 10000
 	}
 
-	if i.Attribute.Expire < time.Second*1 {
-		i.Attribute.Expire = time.Second * 40
+	if i.Attribute.ExpireSecond < time.Second*1 {
+		i.Attribute.ExpireSecond = time.Second * 40
 	}
 
 	if i.Attribute.Sender == nil {

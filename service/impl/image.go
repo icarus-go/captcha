@@ -6,7 +6,6 @@ import (
 	"pmo-test4.yz-intelligence.com/kit/captcha/config"
 	"pmo-test4.yz-intelligence.com/kit/captcha/ext"
 	"pmo-test4.yz-intelligence.com/kit/component/gins"
-	"time"
 )
 
 var ImageStore base64Captcha.Store
@@ -28,8 +27,8 @@ func (i *Image) Get(configuration *ext.Request) (*ext.Captcha, error) {
 		i.Attribute.CollectNumber = 10000
 	}
 
-	if i.Attribute.Expire < time.Second*1 {
-		i.Attribute.Expire = time.Second * 30
+	if i.Attribute.ExpireSecond < 1 {
+		i.Attribute.ExpireSecond = 30
 	}
 
 	if ImageStore == nil {
