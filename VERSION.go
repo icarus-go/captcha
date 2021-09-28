@@ -1,3 +1,3 @@
 package captcha
 
-const VERSION = "v0.0.13"
+const VERSION = "v0.0.14"

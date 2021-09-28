@@ -1,4 +1,4 @@
-package response
+package ext
 
 type Captcha struct {
 	CaptchaID string `json:"captchaID"`
