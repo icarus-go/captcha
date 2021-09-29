@@ -2,6 +2,7 @@ package service
 
 import (
 	"pmo-test4.yz-intelligence.com/kit/captcha/config"
+	"pmo-test4.yz-intelligence.com/kit/captcha/ext"
 	"testing"
 )
 
@@ -41,6 +42,13 @@ func (Sms) Send(length int) (string, string, error) {
 	return "13129627708", "100010", nil
 }
 
+type SmsSender struct{}
+
+func (*SmsSender) Send(mobile string, length int) (string, error) {
+	println("helloWorld")
+	return "", nil
+}
+
 func Test_captcha_SMSGet(t *testing.T) {
 	cnf := config.Attribute{}
 
@@ -49,8 +57,8 @@ func Test_captcha_SMSGet(t *testing.T) {
 	cnf.ExpireSecond = 10
 	cnf.Height = 60
 	cnf.Width = 300
-	cnf.Kind = "ext"
-	//cnf.Sender = Sms{}
+	cnf.Kind = "sms"
+	cnf.Sender = &SmsSender{}
 
 	code, err := New(&cnf)
 	if err != nil {
@@ -58,6 +66,13 @@ func Test_captcha_SMSGet(t *testing.T) {
 	}
 
 	println(code)
+
+	code.Get(&ext.Request{
+
+		SMS: ext.SmsGenerator{
+			Mobile: "13129627708",
+		},
+	})
 	//result, err := code.Get(&ext.Request{
 	//	Email: ext.EmailGenerate{},
 	//	SMS:   ext.SmsGenerator{},
