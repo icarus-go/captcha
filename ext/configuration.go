@@ -5,7 +5,7 @@ package ext
 //Request 请求
 type Request struct {
 	Email EmailGenerate `json:"email"` // 邮件所需参数
-	SMS   SmsGenerator  `json:"ext"`   // 短信需要手机号码
+	SMS   SmsGenerator  `json:"sms"`   // 短信需要手机号码
 	Image struct{}      `json:"image"` // 图片不需要配置
 }
 
