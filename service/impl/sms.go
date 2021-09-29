@@ -29,6 +29,10 @@ func (i *SMS) Get(request *ext.Request) (*ext.Captcha, error) {
 		return nil, errors.New("手机验证码不允许为空")
 	}
 
+	if i.Attribute.Sender == nil {
+		return nil, errors.New("短信发送方法为空")
+	}
+
 	code, err := i.Attribute.Sender.Send(request.SMS.Mobile, i.Attribute.Length)
 	if err != nil {
 		return nil, err

@@ -38,10 +38,6 @@ func New(cnf *config.Attribute) (ICode, error) {
 		cnf.ExpireSecond = time.Second * 40
 	}
 
-	if cnf.Sender == nil {
-		return nil, errors.New("短信发送方法为空")
-	}
-
 	store := base64Captcha.NewMemoryStore(cnf.CollectNumber, cnf.ExpireSecond*time.Second)
 
 	var instance ICode

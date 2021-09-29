@@ -2,7 +2,6 @@ package service
 
 import (
 	"pmo-test4.yz-intelligence.com/kit/captcha/config"
-	"pmo-test4.yz-intelligence.com/kit/captcha/service/impl"
 	"testing"
 )
 
@@ -26,7 +25,6 @@ func Test_captcha_CommonGet(t *testing.T) {
 		return
 	}
 
-	println(impl.ImageStore)
 	//println("image:", result.Image, ", captchaID:", result.CaptchaID)
 
 	value := "" // debug setting
