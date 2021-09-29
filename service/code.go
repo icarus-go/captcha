@@ -26,6 +26,22 @@ func New(cnf *config.Attribute) (ICode, error) {
 		cnf.Kind = adapter.Image.Value()
 	}
 
+	if cnf.Length < 4 {
+		cnf.Length = 4
+	}
+
+	if cnf.CollectNumber < 1 {
+		cnf.CollectNumber = 10000
+	}
+
+	if cnf.ExpireSecond < time.Second*1 {
+		cnf.ExpireSecond = time.Second * 40
+	}
+
+	if cnf.Sender == nil {
+		return nil, errors.New("短信发送方法为空")
+	}
+
 	store := base64Captcha.NewMemoryStore(cnf.CollectNumber, cnf.ExpireSecond*time.Second)
 
 	var instance ICode

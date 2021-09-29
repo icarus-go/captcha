@@ -47,12 +47,6 @@ func (i *Image) Get(configuration *ext.Request) (*ext.Captcha, error) {
 		return nil, err
 	}
 
-	//captchaID, imageBase64, err := cp.Generate()
-	//if err != nil {
-	//	return result, err
-	//}
-	//i.Store = &cp.Store
-
 	return &ext.Captcha{
 		CaptchaID: id,
 		Email:     ext.Email{},
