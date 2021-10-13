@@ -34,8 +34,8 @@ func New(cnf *config.Attribute) (ICode, error) {
 		cnf.CollectNumber = 10000
 	}
 
-	if cnf.ExpireSecond < time.Second*1 {
-		cnf.ExpireSecond = time.Second * 40
+	if cnf.ExpireSecond < 1 {
+		cnf.ExpireSecond = 40 // 默认秒数
 	}
 
 	store := base64Captcha.NewMemoryStore(cnf.CollectNumber, cnf.ExpireSecond*time.Second)
