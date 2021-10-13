@@ -48,5 +48,5 @@ func (i *SMS) Get(request *ext.Request) (*ext.Captcha, error) {
 }
 
 func (i *SMS) Verify(code, captchaID string) bool {
-	return (*SmsStore).Verify(captchaID, code, false)
+	return (*SmsStore).Verify(captchaID, code, true)
 }
