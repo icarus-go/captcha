@@ -8,5 +8,5 @@ replace google.golang.org/grpc v1.40.1 => google.golang.org/grpc v1.26.0
 
 require (
 	github.com/mojocn/base64Captcha v1.3.5
-	pmo-test4.yz-intelligence.com/kit/component v0.0.45
+	pmo-test4.yz-intelligence.com/kit/component v0.0.46
 )
