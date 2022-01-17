@@ -2,10 +2,10 @@ package impl
 
 import (
 	"errors"
+	"github.com/icarus-go/captcha/config"
+	"github.com/icarus-go/captcha/ext"
+	"github.com/icarus-go/component/gins"
 	"github.com/mojocn/base64Captcha"
-	"pmo-test4.yz-intelligence.com/kit/captcha/config"
-	"pmo-test4.yz-intelligence.com/kit/captcha/ext"
-	"pmo-test4.yz-intelligence.com/kit/component/gins"
 )
 
 var SmsStore *base64Captcha.Store

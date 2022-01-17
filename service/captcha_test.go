@@ -1,8 +1,8 @@
 package service
 
 import (
-	"pmo-test4.yz-intelligence.com/kit/captcha/config"
-	"pmo-test4.yz-intelligence.com/kit/captcha/ext"
+	"github.com/icarus-go/captcha/config"
+	"github.com/icarus-go/captcha/ext"
 	"testing"
 )
 

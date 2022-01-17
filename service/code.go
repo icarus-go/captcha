@@ -2,14 +2,14 @@ package service
 
 import (
 	"errors"
+	"github.com/icarus-go/captcha/config"
+	"github.com/icarus-go/captcha/ext"
 	"github.com/mojocn/base64Captcha"
-	"pmo-test4.yz-intelligence.com/kit/captcha/config"
-	"pmo-test4.yz-intelligence.com/kit/captcha/ext"
 	"time"
 
-	"pmo-test4.yz-intelligence.com/kit/captcha/service/adapter"
-	"pmo-test4.yz-intelligence.com/kit/captcha/service/impl"
-	"pmo-test4.yz-intelligence.com/kit/component/gins"
+	"github.com/icarus-go/captcha/service/adapter"
+	"github.com/icarus-go/captcha/service/impl"
+	"github.com/icarus-go/component/gins"
 )
 
 type ICode interface {
